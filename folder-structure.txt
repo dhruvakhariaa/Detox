@@ -1,1032 +1,516 @@
 detox-mental-wellness/
-
 ├── README.md
-
 ├── LICENSE
-
 ├── .gitignore
-
 ├── .env.example
-
 ├── .env.local
-
 ├── package.json
-
 ├── docker-compose.yml
-
 ├── vercel.json                        # 🚀 Vercel deployment config
-
 ├── firebase.json
-
 ├── firestore.rules
-
 ├── storage.rules
-
 ├──
-
-├── docs/                              # 📋 Documentation \& Hackathon Materials
-
-│   ├── PROJECT\_OVERVIEW.md
-
-│   ├── DEMO\_SCRIPT.md
-
-│   ├── API\_DOCUMENTATION.md
-
-│   ├── SETUP\_GUIDE.md
-
-│   ├── CRISIS\_PROTOCOL.md             # ⚠ Crisis intervention procedures
-
+├── docs/                              # 📋 Documentation & Hackathon Materials
+│   ├── PROJECT_OVERVIEW.md
+│   ├── DEMO_SCRIPT.md
+│   ├── API_DOCUMENTATION.md
+│   ├── SETUP_GUIDE.md
+│   ├── CRISIS_PROTOCOL.md             # ⚠ Crisis intervention procedures
 │   └── hackathon/
-
 │       ├── pitch-deck.pptx
-
 │       ├── demo-video.mp4
-
 │       └── screenshots/
-
 │
-
 ├── frontend/                          # 🎨 Next.js Frontend (Vercel-ready)
-
 │   ├── public/
-
 │   │   ├── icons/
-
 │   │   ├── images/
-
 │   │   ├── sounds/                    # Simple game sounds
-
 │   │   ├── crisis-resources/          # ⚠ Crisis helpline info
-
 │   │   └── favicon.ico
-
 │   ├── src/
-
 │   │   ├── app/                       # Next.js App Router
-
 │   │   │   ├── layout.tsx
-
 │   │   │   ├── page.tsx               # Landing page
-
 │   │   │   ├── globals.css
-
 │   │   │   ├── api/                   # Next.js API routes (Vercel serverless)
-
 │   │   │   │   ├── auth/
-
 │   │   │   │   │   └── route.ts
-
 │   │   │   │   ├── personality/
-
 │   │   │   │   │   ├── analyze/route.ts
-
 │   │   │   │   │   └── quiz/route.ts
-
 │   │   │   │   ├── mood/
-
 │   │   │   │   │   ├── track/route.ts
-
 │   │   │   │   │   └── calendar/route.ts
-
 │   │   │   │   ├── chat/
-
 │   │   │   │   │   ├── message/route.ts
-
 │   │   │   │   │   └── crisis-detect/route.ts # ⚠ Crisis detection
-
 │   │   │   │   ├── games/
-
 │   │   │   │   │   └── session/route.ts
-
 │   │   │   │   ├── social/
-
 │   │   │   │   │   ├── match/route.ts
-
 │   │   │   │   │   └── screentime/route.ts
-
 │   │   │   │   ├── export/
-
 │   │   │   │   │   └── data/route.ts   # 📊 Data export API
-
 │   │   │   │   └── ollama/
-
 │   │   │   │       └── chat/route.ts   # DeepSeek R1 via Ollama
-
 │   │   │   ├── auth/
-
 │   │   │   │   ├── signup/page.tsx
-
 │   │   │   │   └── login/page.tsx
-
 │   │   │   ├── onboarding/
-
 │   │   │   │   ├── page.tsx           # Initial 5-6 questions
-
 │   │   │   │   └── personality-quiz/page.tsx # Deep 25-30 questions
-
 │   │   │   ├── dashboard/page.tsx     # Main dashboard
-
 │   │   │   ├── mood/
-
 │   │   │   │   ├── calendar/page.tsx  # Mood calendar
-
 │   │   │   │   └── tracker/page.tsx   # Daily mood tracking
-
 │   │   │   ├── games/
-
 │   │   │   │   ├── page.tsx           # Games hub
-
 │   │   │   │   ├── punching-bag/page.tsx # Simple anger game
-
 │   │   │   │   ├── anxiety-relief/page.tsx # Focus games
-
 │   │   │   │   └── breathing/page.tsx  # Breathing exercises
-
 │   │   │   ├── focus/
-
 │   │   │   │   ├── pomodoro/page.tsx  # Pomodoro timer
-
 │   │   │   │   └── sessions/page.tsx  # Focus session history
-
 │   │   │   ├── social/
-
 │   │   │   │   ├── connect/page.tsx   # People connection
-
 │   │   │   │   └── screentime/page.tsx # Manual screen time input
-
 │   │   │   ├── detox/
-
-│   │   │   │   ├── tips/page.tsx      # Tips \& tricks
-
+│   │   │   │   ├── tips/page.tsx      # Tips & tricks
 │   │   │   │   └── challenges/page.tsx # Detox challenges
-
 │   │   │   ├── achievements/page.tsx   # Virtual badges system
-
 │   │   │   ├── chat/page.tsx          # Full chat interface
-
 │   │   │   ├── crisis/                # ⚠ Crisis intervention
-
 │   │   │   │   ├── support/page.tsx   # Immediate support page
-
 │   │   │   │   └── resources/page.tsx # Crisis resources
-
 │   │   │   ├── export/
-
 │   │   │   │   └── data/page.tsx      # 📊 Data export interface
-
 │   │   │   └── profile/page.tsx
-
 │   │   │
-
 │   │   ├── components/                # Reusable UI Components
-
 │   │   │   ├── ui/                    # Base UI components
-
 │   │   │   │   ├── Button.tsx
-
 │   │   │   │   ├── Card.tsx
-
 │   │   │   │   ├── Modal.tsx
-
 │   │   │   │   ├── Input.tsx
-
 │   │   │   │   ├── Badge.tsx
-
 │   │   │   │   └── Alert.tsx          # ⚠ Crisis alerts
-
 │   │   │   ├── auth/
-
 │   │   │   │   ├── AuthWrapper.tsx
-
 │   │   │   │   └── ProtectedRoute.tsx
-
 │   │   │   ├── onboarding/
-
 │   │   │   │   ├── QuickAssessment.tsx
-
 │   │   │   │   ├── PersonalityQuiz.tsx
-
 │   │   │   │   └── ProgressIndicator.tsx
-
 │   │   │   ├── mood/
-
 │   │   │   │   ├── MoodCalendar.tsx
-
 │   │   │   │   ├── MoodTracker.tsx
-
 │   │   │   │   ├── MoodChart.tsx
-
 │   │   │   │   └── DailyTask.tsx
-
 │   │   │   ├── games/
-
 │   │   │   │   ├── SimplePunchingBag.tsx # Basic canvas-based game
-
 │   │   │   │   ├── AnxietyGames.tsx      # Simple focus games
-
 │   │   │   │   ├── BreathingExercise.tsx # Guided breathing
-
 │   │   │   │   └── GameStats.tsx
-
 │   │   │   ├── focus/
-
 │   │   │   │   ├── PomodoroTimer.tsx
-
 │   │   │   │   ├── FocusSession.tsx
-
 │   │   │   │   └── SessionAnalytics.tsx
-
 │   │   │   ├── chat/
-
 │   │   │   │   ├── ChatBot.tsx
-
 │   │   │   │   ├── ChatMessage.tsx
-
 │   │   │   │   ├── DailyCheckIn.tsx     # Popup component
-
 │   │   │   │   ├── CrisisDetector.tsx   # ⚠ Real-time crisis detection
-
 │   │   │   │   └── EmergencyModal.tsx   # ⚠ Crisis intervention UI
-
 │   │   │   ├── social/
-
 │   │   │   │   ├── PeopleConnect.tsx
-
 │   │   │   │   ├── ScreenTimeInput.tsx  # Manual input form
-
 │   │   │   │   ├── InterestMatcher.tsx  # Interest-based matching
-
 │   │   │   │   └── SocialDetox.tsx
-
 │   │   │   ├── detox/
-
 │   │   │   │   ├── DetoxTips.tsx
-
 │   │   │   │   ├── AttentionTraining.tsx
-
 │   │   │   │   └── DetoxChallenge.tsx
-
 │   │   │   ├── achievements/
-
 │   │   │   │   ├── BadgeSystem.tsx      # Virtual badges only
-
 │   │   │   │   ├── AchievementCard.tsx
-
 │   │   │   │   └── ProgressTracker.tsx
-
 │   │   │   ├── export/
-
 │   │   │   │   ├── DataExporter.tsx     # 📊 Export interface
-
 │   │   │   │   ├── ExportPreview.tsx    # Preview before export
-
 │   │   │   │   └── ExportHistory.tsx    # Previous exports
-
 │   │   │   └── layout/
-
 │   │   │       ├── Navbar.tsx
-
 │   │   │       ├── Sidebar.tsx
-
 │   │   │       ├── FloatingChatBot.tsx  # Bottom right popup
-
 │   │   │       └── CrisisButton.tsx     # ⚠ Emergency help button
-
 │   │   │
-
 │   │   ├── hooks/                     # Custom React Hooks
-
 │   │   │   ├── useAuth.ts
-
 │   │   │   ├── useMood.ts
-
 │   │   │   ├── useChat.ts
-
 │   │   │   ├── usePersonality.ts
-
 │   │   │   ├── useScreenTime.ts
-
 │   │   │   ├── useAchievements.ts
-
 │   │   │   ├── usePomodoro.ts
-
 │   │   │   ├── useCrisisDetection.ts   # ⚠ Crisis monitoring
-
 │   │   │   └── useDataExport.ts        # 📊 Data export hook
-
 │   │   │
-
-│   │   ├── lib/                       # Utilities \& Configs
-
+│   │   ├── lib/                       # Utilities & Configs
 │   │   │   ├── firebase.ts
-
 │   │   │   ├── api.ts                 # API client
-
 │   │   │   ├── ollama-client.ts       # DeepSeek R1 local integration
-
 │   │   │   ├── personality-analyzer.ts
-
 │   │   │   ├── mood-analyzer.ts
-
 │   │   │   ├── crisis-detector.ts      # ⚠ Crisis detection logic
-
 │   │   │   ├── data-exporter.ts        # 📊 Export functionality
-
 │   │   │   ├── simple-games.ts         # Simple game utilities
-
 │   │   │   └── utils.ts
-
 │   │   │
-
 │   │   ├── services/                  # API Services
-
 │   │   │   ├── auth.service.ts
-
 │   │   │   ├── personality.service.ts
-
 │   │   │   ├── mood.service.ts
-
 │   │   │   ├── chat.service.ts
-
 │   │   │   ├── games.service.ts
-
 │   │   │   ├── focus.service.ts
-
 │   │   │   ├── social.service.ts
-
 │   │   │   ├── achievements.service.ts
-
 │   │   │   ├── crisis.service.ts       # ⚠ Crisis intervention service
-
 │   │   │   └── export.service.ts       # 📊 Data export service
-
 │   │   │
-
 │   │   ├── store/                     # State Management (Zustand)
-
 │   │   │   ├── authStore.ts
-
 │   │   │   ├── personalityStore.ts
-
 │   │   │   ├── moodStore.ts
-
 │   │   │   ├── chatStore.ts
-
 │   │   │   ├── gameStore.ts
-
 │   │   │   ├── achievementStore.ts
-
 │   │   │   ├── crisisStore.ts          # ⚠ Crisis state management
-
 │   │   │   └── exportStore.ts          # 📊 Export state
-
 │   │   │
-
 │   │   ├── types/                     # TypeScript Definitions
-
 │   │   │   ├── auth.types.ts
-
 │   │   │   ├── personality.types.ts
-
 │   │   │   ├── mood.types.ts
-
 │   │   │   ├── chat.types.ts
-
 │   │   │   ├── games.types.ts
-
 │   │   │   ├── achievement.types.ts
-
 │   │   │   ├── crisis.types.ts         # ⚠ Crisis-related types
-
 │   │   │   └── export.types.ts         # 📊 Export data types
-
 │   │   │
-
 │   │   └── styles/                    # Styling
-
 │   │       ├── globals.css
-
 │   │       ├── components.css
-
 │   │       ├── games.css              # Simple game styles
-
 │   │       └── crisis.css             # ⚠ Crisis UI styles
-
 │   │
-
 │   ├── package.json
-
 │   ├── next.config.js                 # Vercel-optimized config
-
 │   ├── tailwind.config.js
-
 │   └── tsconfig.json
-
 │
-
 ├── backend/                           # 🚀 Backend API Services (Docker-ready)
-
 │   ├── src/
-
 │   │   ├── config/
-
 │   │   │   ├── database.js
-
 │   │   │   ├── firebase.js
-
 │   │   │   └── ollama.js              # Local DeepSeek R1 config
-
 │   │   │
-
 │   │   ├── controllers/               # API Route Handlers
-
 │   │   │   ├── auth.controller.js
-
 │   │   │   ├── personality.controller.js
-
 │   │   │   ├── mood.controller.js
-
 │   │   │   ├── chat.controller.js
-
 │   │   │   ├── games.controller.js
-
 │   │   │   ├── focus.controller.js
-
 │   │   │   ├── social.controller.js
-
 │   │   │   ├── achievements.controller.js
-
 │   │   │   ├── crisis.controller.js    # ⚠ Crisis management
-
 │   │   │   └── export.controller.js    # 📊 Data export API
-
 │   │   │
-
 │   │   ├── services/                  # Business Logic
-
 │   │   │   ├── personality-analysis.service.js
-
 │   │   │   ├── mood-tracking.service.js
-
 │   │   │   ├── chat-filtering.service.js
-
 │   │   │   ├── safety-filter.service.js
-
 │   │   │   ├── screentime-analysis.service.js
-
 │   │   │   ├── interest-matching.service.js # Interest-based matching
-
 │   │   │   ├── achievement-system.service.js
-
 │   │   │   ├── crisis-detection.service.js # ⚠ Advanced crisis detection
-
 │   │   │   ├── emergency-response.service.js # ⚠ Emergency protocols
-
 │   │   │   └── data-export.service.js      # 📊 Export generation
-
 │   │   │
-
 │   │   ├── middleware/
-
 │   │   │   ├── auth.middleware.js
-
 │   │   │   ├── safety.middleware.js
-
 │   │   │   ├── crisis-monitor.middleware.js # ⚠ Real-time monitoring
-
 │   │   │   └── rateLimit.middleware.js
-
 │   │   │
-
 │   │   ├── models/                    # Database Models
-
 │   │   │   ├── User.js
-
 │   │   │   ├── PersonalityProfile.js
-
 │   │   │   ├── MoodEntry.js
-
 │   │   │   ├── ChatSession.js
-
 │   │   │   ├── GameSession.js
-
 │   │   │   ├── FocusSession.js
-
 │   │   │   ├── Achievement.js
-
 │   │   │   ├── ScreenTimeData.js
-
 │   │   │   ├── InterestProfile.js      # User interests
-
 │   │   │   ├── CrisisAlert.js          # ⚠ Crisis incidents
-
 │   │   │   └── DataExport.js           # 📊 Export records
-
 │   │   │
-
 │   │   ├── routes/                    # API Routes
-
 │   │   │   ├── auth.routes.js
-
 │   │   │   ├── personality.routes.js
-
 │   │   │   ├── mood.routes.js
-
 │   │   │   ├── chat.routes.js
-
 │   │   │   ├── games.routes.js
-
 │   │   │   ├── focus.routes.js
-
 │   │   │   ├── social.routes.js
-
 │   │   │   ├── achievements.routes.js
-
 │   │   │   ├── crisis.routes.js        # ⚠ Crisis endpoints
-
 │   │   │   └── export.routes.js        # 📊 Export endpoints
-
 │   │   │
-
 │   │   ├── utils/
-
 │   │   │   ├── validation.js
-
 │   │   │   ├── encryption.js
-
 │   │   │   ├── logger.js
-
 │   │   │   ├── crisis-keywords.js      # ⚠ Crisis detection patterns
-
 │   │   │   └── export-formatter.js     # 📊 Export formatting
-
 │   │   │
-
 │   │   └── app.js                     # Main Express app
-
 │   │
-
 │   ├── Dockerfile                     # Docker configuration
-
 │   ├── package.json
-
 │   └── server.js
-
 │
-
-├── ai/                                # 🧠 AI \& DeepSeek R1 (Ollama Local)
-
+├── ai/                                # 🧠 AI & DeepSeek R1 (Ollama Local)
 │   ├── ollama/                        # Local Ollama setup
-
 │   │   ├── setup.sh                   # Ollama installation script
-
 │   │   ├── models/
-
 │   │   │   └── deepseek-r1-config.json
-
 │   │   └── docker/
-
 │   │       ├── Dockerfile.ollama
-
 │   │       └── docker-compose.ollama.yml
-
 │   │
-
 │   ├── prompts/                       # DeepSeek R1 Prompts
-
 │   │   ├── system-prompts/
-
 │   │   │   ├── personality-analysis.md
-
 │   │   │   ├── mood-assessment.md
-
 │   │   │   ├── chat-support.md
-
 │   │   │   ├── safety-filter.md
-
 │   │   │   ├── crisis-detection.md     # ⚠ Crisis identification
-
 │   │   │   ├── emergency-response.md   # ⚠ Crisis response
-
 │   │   │   └── interest-matching.md    # People matching
-
 │   │   ├── user-prompts/
-
 │   │   │   ├── quick-questions.md      # 5-6 initial questions
-
 │   │   │   ├── deep-questions.md       # 25-30 detailed questions
-
 │   │   │   ├── daily-checkin.md
-
 │   │   │   └── manual-screentime.md    # Screen time input prompts
-
 │   │   └── response-templates/
-
 │   │       ├── empathetic-responses.md
-
 │   │       ├── crisis-intervention.md  # ⚠ Crisis response templates
-
 │   │       ├── motivation-messages.md
-
 │   │       └── export-summaries.md     # 📊 Export descriptions
-
 │   │
-
 │   ├── models/                        # AI Model Configurations
-
 │   │   ├── deepseek-client.js         # Ollama DeepSeek R1 client
-
 │   │   ├── personality-analyzer.js
-
 │   │   ├── mood-predictor.js
-
 │   │   ├── content-filter.js
-
 │   │   ├── crisis-classifier.js       # ⚠ Crisis detection ML
-
 │   │   └── interest-similarity.js     # Interest matching algorithm
-
 │   │
-
 │   ├── training-data/                 # Sample Data for Testing
-
 │   │   ├── personality-samples.json
-
 │   │   ├── mood-patterns.json
-
 │   │   ├── crisis-examples.json       # ⚠ Crisis detection training
-
 │   │   ├── safe-responses.json
-
 │   │   └── interest-categories.json   # Interest matching data
-
 │   │
-
 │   └── scripts/                       # AI Utility Scripts
-
 │       ├── setup-ollama.sh           # Local Ollama setup
-
 │       ├── test-prompts.js
-
 │       ├── validate-responses.js
-
 │       ├── crisis-detection-test.js   # ⚠ Crisis system testing
-
 │       └── benchmark-performance.js
-
 │
-
-├── database/                          # 🗄 Database Schema \& Migrations
-
+├── database/                          # 🗄 Database Schema & Migrations
 │   ├── schemas/
-
 │   │   ├── users.sql
-
-│   │   ├── personality\_profiles.sql
-
-│   │   ├── mood\_entries.sql
-
-│   │   ├── chat\_sessions.sql
-
-│   │   ├── game\_sessions.sql
-
+│   │   ├── personality_profiles.sql
+│   │   ├── mood_entries.sql
+│   │   ├── chat_sessions.sql
+│   │   ├── game_sessions.sql
 │   │   ├── achievements.sql
-
-│   │   ├── screentime\_data.sql        # Manual input data
-
-│   │   ├── interest\_profiles.sql      # User interests
-
-│   │   ├── people\_connections.sql     # Interest-based matches
-
-│   │   ├── crisis\_alerts.sql          # ⚠ Crisis incidents
-
-│   │   └── data\_exports.sql           # 📊 Export history
-
+│   │   ├── screentime_data.sql        # Manual input data
+│   │   ├── interest_profiles.sql      # User interests
+│   │   ├── people_connections.sql     # Interest-based matches
+│   │   ├── crisis_alerts.sql          # ⚠ Crisis incidents
+│   │   └── data_exports.sql           # 📊 Export history
 │   │
-
 │   ├── migrations/
-
-│   │   ├── 001\_initial\_setup.sql
-
-│   │   ├── 002\_add\_personality\_system.sql
-
-│   │   ├── 003\_add\_achievements.sql
-
-│   │   ├── 004\_add\_crisis\_system.sql  # ⚠ Crisis detection tables
-
-│   │   └── 005\_add\_export\_system.sql  # 📊 Export system
-
+│   │   ├── 001_initial_setup.sql
+│   │   ├── 002_add_personality_system.sql
+│   │   ├── 003_add_achievements.sql
+│   │   ├── 004_add_crisis_system.sql  # ⚠ Crisis detection tables
+│   │   └── 005_add_export_system.sql  # 📊 Export system
 │   │
-
 │   └── seeds/
-
-│       ├── sample\_users.json
-
-│       ├── achievement\_types.json     # Virtual badges only
-
-│       ├── interest\_categories.json   # Predefined interests
-
-│       ├── crisis\_resources.json      # ⚠ Helpline numbers, resources
-
-│       └── export\_templates.json      # 📊 Export formats
-
+│       ├── sample_users.json
+│       ├── achievement_types.json     # Virtual badges only
+│       ├── interest_categories.json   # Predefined interests
+│       ├── crisis_resources.json      # ⚠ Helpline numbers, resources
+│       └── export_templates.json      # 📊 Export formats
 │
-
 ├── games/                             # 🎮 Simple Browser Games
-
 │   ├── src/
-
 │   │   ├── simple-games/
-
 │   │   │   ├── punching-bag/
-
 │   │   │   │   ├── PunchingBag.js     # Canvas-based simple game
-
 │   │   │   │   ├── PhotoUpload.js     # Photo overlay feature
-
 │   │   │   │   └── animation.js       # Basic animations
-
 │   │   │   ├── anxiety-relief/
-
 │   │   │   │   ├── BreathingCircle.js # Guided breathing visual
-
 │   │   │   │   ├── FocusGame.js       # Simple concentration game
-
 │   │   │   │   └── ColorTherapy.js    # Calming color games
-
 │   │   │   └── shared/
-
 │   │   │       ├── SimpleGameEngine.js # Lightweight game utilities
-
 │   │   │       └── ScoreTracker.js
-
 │   │   │
-
 │   │   ├── assets/
-
 │   │   │   ├── simple-sprites/        # Basic game graphics
-
 │   │   │   └── sounds/                # Simple audio files
-
 │   │   │
-
 │   │   └── utils/
-
 │   │       └── canvas-helpers.js      # Canvas drawing utilities
-
 │   │
-
 │   └── package.json
-
 │
-
-├── crisis-system/                     # ⚠ Crisis Detection \& Response
-
+├── crisis-system/                     # ⚠ Crisis Detection & Response
 │   ├── detection/
-
 │   │   ├── keyword-patterns.js        # Crisis keyword detection
-
 │   │   ├── sentiment-analyzer.js      # Mood-based crisis detection
-
 │   │   ├── behavioral-patterns.js     # Usage pattern analysis
-
 │   │   └── ml-classifier.js           # ML-based crisis detection
-
 │   │
-
 │   ├── response/
-
 │   │   ├── immediate-response.js      # Instant crisis response
-
 │   │   ├── resource-provider.js       # Crisis resources (helplines)
-
 │   │   ├── escalation-protocol.js     # When to involve professionals
-
 │   │   └── follow-up-system.js        # Post-crisis follow-up
-
 │   │
-
 │   ├── resources/
-
 │   │   ├── helplines-india.json       # Indian crisis helplines
-
 │   │   ├── crisis-protocols.md        # Response procedures
-
 │   │   └── professional-contacts.json # Mental health professionals
-
 │   │
-
 │   └── monitoring/
-
 │       ├── real-time-monitor.js       # Live crisis monitoring
-
 │       ├── alert-system.js            # Notification system
-
 │       └── reporting-dashboard.js     # Crisis analytics
-
 │
-
 ├── export-system/                     # 📊 Data Export Feature
-
 │   ├── generators/
-
 │   │   ├── pdf-generator.js           # PDF export generation
-
 │   │   ├── json-exporter.js           # Raw data export
-
 │   │   ├── csv-exporter.js            # Spreadsheet format
-
 │   │   └── summary-generator.js       # AI-generated summaries
-
 │   │
-
 │   ├── templates/
-
 │   │   ├── mental-health-report.html  # HTML template for PDF
-
 │   │   ├── mood-analysis-template.js  # Mood pattern templates
-
 │   │   └── progress-summary.template  # Progress report template
-
 │   │
-
 │   ├── privacy/
-
 │   │   ├── data-anonymizer.js         # Remove identifying info
-
 │   │   ├── consent-manager.js         # Export permissions
-
 │   │   └── secure-sharing.js          # Secure export sharing
-
 │   │
-
 │   └── formats/
-
 │       ├── therapist-format.js        # Format for mental health professionals
-
 │       ├── personal-format.js         # Format for personal use
-
 │       └── research-format.js         # Anonymized research format
-
 │
-
 ├── tests/                             # 🧪 Testing Suite
-
 │   ├── unit/
-
 │   │   ├── personality-analyzer.test.js
-
 │   │   ├── safety-filter.test.js
-
 │   │   ├── crisis-detection.test.js   # ⚠ Crisis system tests
-
 │   │   ├── simple-games.test.js
-
 │   │   └── export-system.test.js      # 📊 Export functionality tests
-
 │   ├── integration/
-
 │   │   ├── api-endpoints.test.js
-
 │   │   ├── ollama-integration.test.js # DeepSeek R1 tests
-
 │   │   ├── chat-flow.test.js
-
 │   │   └── crisis-flow.test.js        # ⚠ End-to-end crisis tests
-
 │   ├── e2e/
-
 │   │   ├── user-journey.test.js
-
 │   │   ├── crisis-intervention.test.js # ⚠ Crisis scenarios
-
 │   │   └── export-workflow.test.js    # 📊 Export user flow
-
 │   └── fixtures/
-
 │       ├── sample-users.json
-
 │       ├── crisis-scenarios.json      # ⚠ Test crisis situations
-
 │       └── export-samples.json        # 📊 Sample export data
-
 │
-
-├── deployment/                        # 🚀 Deployment \& DevOps
-
+├── deployment/                        # 🚀 Deployment & DevOps
 │   ├── docker/
-
 │   │   ├── Dockerfile.frontend        # Next.js container
-
 │   │   ├── Dockerfile.backend         # API container
-
 │   │   ├── Dockerfile.ollama          # DeepSeek R1 container
-
 │   │   └── Dockerfile.crisis-monitor  # ⚠ Crisis monitoring service
-
 │   ├── kubernetes/
-
 │   │   ├── frontend-deployment.yaml
-
 │   │   ├── backend-deployment.yaml
-
 │   │   ├── ollama-deployment.yaml     # Local AI deployment
-
 │   │   ├── crisis-monitor-deployment.yaml # ⚠ Crisis system
-
 │   │   └── ingress.yaml
-
 │   ├── vercel/
-
 │   │   ├── vercel.json                # Vercel configuration
-
 │   │   ├── build-settings.md          # Vercel build instructions
-
 │   │   └── env-variables.md           # Required environment variables
-
 │   ├── scripts/
-
 │   │   ├── build.sh
-
 │   │   ├── deploy-vercel.sh           # Vercel deployment
-
 │   │   ├── deploy-docker.sh           # Docker deployment
-
 │   │   ├── setup-ollama.sh            # Local Ollama setup
-
 │   │   └── test.sh
-
 │   └── environments/
-
 │       ├── development.env
-
 │       ├── staging.env
-
 │       └── production.env
-
 │
-
-├── analytics/                         # 📊 Analytics \& Monitoring
-
+├── analytics/                         # 📊 Analytics & Monitoring
 │   ├── dashboards/
-
 │   │   ├── user-engagement.json
-
 │   │   ├── mental-health-metrics.json
-
 │   │   ├── crisis-response-analytics.json # ⚠ Crisis system metrics
-
 │   │   └── export-usage-stats.json        # 📊 Export analytics
-
 │   ├── scripts/
-
 │   │   ├── generate-reports.js
-
 │   │   ├── analyze-patterns.js
-
 │   │   ├── crisis-trend-analysis.js   # ⚠ Crisis pattern analysis
-
 │   │   └── export-impact-analysis.js  # 📊 Export effectiveness
-
 │   └── models/
-
 │       ├── user-behavior-analysis.py
-
 │       ├── mood-trend-predictor.py
-
 │       └── crisis-prediction-model.py # ⚠ Predictive crisis detection
-
 │
-
 └── tools/                             # 🔧 Development Tools
-
     ├── scripts/
-
     │   ├── setup-dev-env.sh           # Complete development setup
-
     │   ├── setup-ollama-local.sh      # Local DeepSeek R1 setup
-
     │   ├── generate-components.js
-
     │   ├── test-crisis-system.sh      # ⚠ Crisis system testing
-
     │   └── validate-exports.js        # 📊 Export validation
-
     ├── generators/
-
     │   ├── component-generator/
-
     │   ├── api-generator/
-
     │   └── crisis-template-generator/  # ⚠ Crisis response templates
-
     └── configs/
-
         ├── eslint.config.js
-
         ├── prettier.config.js
-
         ├── jest.config.js
-
         └── vercel-build.config.js      # Vercel optimization
-
